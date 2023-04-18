@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const PizzaBlock = ({
   id,
@@ -22,7 +23,7 @@ const PizzaBlock = ({
       <div className="pizza-block__selector">
         <ul>
           {types.map((typeIndex) => (
-            <li className={activeType === typeIndex ? 'active' : ''}
+            <li key={uuidv4()} className={activeType === typeIndex ? 'active' : ''}
               onClick={() => setActiveType(typeIndex)}
             >
               {typeNames[typeIndex]}
@@ -31,7 +32,7 @@ const PizzaBlock = ({
         </ul>
         <ul>
           {sizes.map((size, i) => (
-            <li onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''}>{size} см.</li>
+            <li key={uuidv4()} onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''}>{size} см.</li>
           ))}
         </ul>
       </div>

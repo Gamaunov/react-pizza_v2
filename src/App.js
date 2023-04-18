@@ -4,6 +4,7 @@ import './scss/app.scss';
 import Sort from './components/Sort';
 import PizzaBlock from './components/PizzaBlock';
 import pizzas from './assets/pizzas.json';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
             {pizzas.map((pizza) => (
-              <PizzaBlock {...pizza} />
+              <PizzaBlock key={uuidv4()} {...pizza} />
             ))}
           </div>
         </div>
