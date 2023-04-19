@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const Categories = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
+const Categories = ({ value, onCategorySelect }) => {
   const categories = [
     'Все',
     'Мясные',
@@ -19,8 +17,8 @@ const Categories = () => {
         {categories.map((category, i) => (
           <li
             key={uuidv4()}
-            onClick={() => setActiveIndex(i)}
-            className={activeIndex === i ? 'active' : ''}
+            onClick={() => onCategorySelect(i)}
+            className={value === i ? 'active' : ''}
           >
             {category}
           </li>
