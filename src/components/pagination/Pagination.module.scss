@@ -1,0 +1,32 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 18px;
+
+  li {
+    border: 1px solid teal;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 45px;
+    cursor: pointer;
+
+    &:hover f {
+      background-color: teal;
+    }
+    &:active {
+      scale: 0.9;
+    }
+  }
+  a {
+    display: inline-block;
+    color: black;
+  }
+  :global {
+    .selected {
+      background-color: teal;
+    }
+  }
+}
