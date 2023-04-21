@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { SearchContext } from '../App';
 
 import Categories from '../components/Categories';
 import Pagination from '../components/pagination/Pagination';
@@ -7,7 +8,8 @@ import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
 import Skeleton from '../components/pizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
+  const { searchValue } = useContext(SearchContext);
   const [pizzaAPI, setPizzaAPI] = useState([]);
   const [isLoaded, setIsLoaded] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
