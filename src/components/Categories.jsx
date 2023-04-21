@@ -1,7 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const Categories = ({ value, onCategorySelect }) => {
+const Categories = ({ value, onSelectCategory }) => {
   const categories = [
     'Все',
     'Мясные',
@@ -17,7 +17,7 @@ const Categories = ({ value, onCategorySelect }) => {
         {categories.map((category, i) => (
           <li
             key={uuidv4()}
-            onClick={() => onCategorySelect(i)}
+            onClick={() => onSelectCategory(i)}
             className={value === i ? 'active' : ''}
           >
             {category}

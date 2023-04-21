@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { SearchContext } from '../App';
 
@@ -7,27 +8,31 @@ import Pagination from '../components/pagination/Pagination';
 import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
 import Skeleton from '../components/pizzaBlock/Skeleton';
 import Sort from '../components/Sort';
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const { categoryId, sort } = useSelector((state) => state.filter);
+
   const { searchValue } = useContext(SearchContext);
   const [pizzaAPI, setPizzaAPI] = useState([]);
   const [isLoaded, setIsLoaded] = useState(true);
-  const [categoryId, setCategoryId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortType, setSortType] = useState({
-    name: 'популярности',
-    sortProperty: 'rating',
-  });
+
+  const onSelectCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
 
   useEffect(() => {
     setIsLoaded(true);
+    const sortBy = sort.sortProperty.replace('-', '');
+    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const category = categoryId > 0 ? `category=${categoryId}` : '';
-    const sortBy = sortType.sortProperty.replace('-', '');
-    const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
     const search = searchValue ? `&search=${searchValue}` : '';
 
     fetch(
-      ` https://643f9012b9e6d064bef86a77.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+      ` https://643f9012b9e6d064bef86a77.mockapi.io/items?page=
+          ${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
     )
       .then((res) => res.json())
       .then((arr) => {
@@ -35,7 +40,7 @@ const Home = () => {
         setIsLoaded(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, searchValue, currentPage]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   const pizzas = pizzaAPI.map((pizza) => (
     <PizzaBlock key={pizza.id} {...pizza} />
@@ -45,11 +50,8 @@ const Home = () => {
   return (
     <>
       <div className="content__top">
-        <Categories
-          value={categoryId}
-          onCategorySelect={(i) => setCategoryId(i)}
-        />
-        <Sort value={sortType} onSortSelect={(i) => setSortType(i)} />
+        <Categories value={categoryId} onSelectCategory={onSelectCategory} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoaded ? skeletons : pizzas}</div>
