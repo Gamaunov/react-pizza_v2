@@ -1,8 +1,9 @@
+import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { SearchContext } from '../App';
 
+import { SearchContext } from '../App';
 import Categories from '../components/Categories';
 import Pagination from '../components/pagination/Pagination';
 import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
@@ -30,13 +31,13 @@ const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    fetch(
-      ` https://643f9012b9e6d064bef86a77.mockapi.io/items?page=
-          ${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-    )
-      .then((res) => res.json())
-      .then((arr) => {
-        setPizzaAPI(arr);
+    axios
+      .get(
+        ` https://643f9012b9e6d064bef86a77.mockapi.io/items?page=
+      ${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+      )
+      .then((res) => {
+        setPizzaAPI(res.data);
         setIsLoaded(false);
       });
     window.scrollTo(0, 0);
