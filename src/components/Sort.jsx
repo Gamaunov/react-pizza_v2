@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { setSort } from '../redux/slices/filterSlice';
 
-const list = [
+export const list = [
   { name: 'популярности (desc', sortProperty: 'rating' },
-  { name: 'популярности (asc', sortProperty: 'rating' },
+  { name: 'популярности (asc', sortProperty: '-rating' },
   { name: 'цене (desc)', sortProperty: 'price' },
-  { name: 'цене (asc)', sortProperty: 'price' },
+  { name: 'цене (asc)', sortProperty: '-price' },
   { name: 'алфавиту (desc)', sortProperty: 'title' },
-  { name: 'алфавиту (asc)', sortProperty: 'title' },
+  { name: 'алфавиту (asc)', sortProperty: '-title' },
 ];
 
 const Sort = () => {
