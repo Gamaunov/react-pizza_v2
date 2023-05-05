@@ -107,7 +107,7 @@ const Home = () => {
         </div>
       ) : (
         <div className="content__items">
-          {status === 'loading' ? skeletons : pizzas}
+          {status === 'LOADING' ? skeletons : pizzas}
         </div>
       )}
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
