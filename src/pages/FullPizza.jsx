@@ -17,11 +17,10 @@ const FullPizza = () => {
                 const { data } = await axios.get('https://643f9012b9e6d064bef86a77.mockapi.io/items/' + id);
                 setPizza(data);
             } catch (error) {
-                alert('Ошибка при получении пиццы!');
+                console.log(error)
                 navigate('/');
             }
         }
-
         fetchPizza();
     }, []);
 
