@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import qs from "qs";
 
-import { SearchContext } from "../App";
+// import { SearchContext } from "../App";
 import Categories from "../components/Categories";
 import Pagination from "../components/pagination/Pagination";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
@@ -28,11 +28,11 @@ const Home = () => {
 
   const { items, status } = useSelector(selectPizzaData);
 
-  const { categoryId, sort, currentPage } = useSelector(
+  const { categoryId, sort, currentPage, searchValue  } = useSelector(
     (state) => state.filter
   );
 
-  const { searchValue } = useContext(SearchContext);
+  // const { searchValue } = useContext(SearchContext);
 
   const onSelectCategory = (id) => {
     dispatch(setCategoryId(id));
