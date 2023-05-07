@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import qs from "qs";
 
-// import { SearchContext } from "../App";
 import Categories from "../components/Categories";
 import Pagination from "../components/pagination/Pagination";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
@@ -17,7 +16,6 @@ import {
 import { useNavigate } from "react-router";
 import { ERROR, fetchPizzas, LOADING } from "../redux/slices/pizzasSlice";
 import { selectPizzaData } from "../redux/pizza/selectors";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -28,11 +26,9 @@ const Home = () => {
 
   const { items, status } = useSelector(selectPizzaData);
 
-  const { categoryId, sort, currentPage, searchValue  } = useSelector(
+  const { categoryId, sort, currentPage, searchValue } = useSelector(
     (state) => state.filter
   );
-
-  // const { searchValue } = useContext(SearchContext);
 
   const onSelectCategory = (id) => {
     dispatch(setCategoryId(id));
