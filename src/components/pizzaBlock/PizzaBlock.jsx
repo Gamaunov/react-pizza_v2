@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../../redux/slices/cartSlice';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../../redux/slices/cartSlice";
+import { Link } from "react-router-dom";
 
 const PizzaBlock = ({
   id,
@@ -14,14 +15,14 @@ const PizzaBlock = ({
 }) => {
   const dispath = useDispatch();
   const cartItem = useSelector((state) =>
-    state.cart.items.find((obj) => obj.id === id),
+    state.cart.items.find((obj) => obj.id === id)
   );
   const addedCount = cartItem ? cartItem.count : 0;
 
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
-  const typeNames = ['тонкое', 'традиционное'];
+  const typeNames = ["тонкое", "традиционное"];
 
   const onClickAdd = () => {
     const item = {
@@ -37,14 +38,16 @@ const PizzaBlock = ({
 
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-      <h4 className="pizza-block__title">{title}</h4>
+      <Link to={`pizza/${id}`}>
+        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <h4 className="pizza-block__title">{title}</h4>
+      </Link>
       <div className="pizza-block__selector">
         <ul>
-          {types.map((typeIndex) => (
+          {types?.map((typeIndex) => (
             <li
               key={typeIndex}
-              className={activeType === typeIndex ? 'active' : ''}
+              className={activeType === typeIndex ? "active" : ""}
               onClick={() => setActiveType(typeIndex)}
             >
               {typeNames[typeIndex]}
@@ -52,11 +55,11 @@ const PizzaBlock = ({
           ))}
         </ul>
         <ul>
-          {sizes.map((size, i) => (
+          {sizes?.map((size, i) => (
             <li
               key={size}
               onClick={() => setActiveSize(i)}
-              className={activeSize === i ? 'active' : ''}
+              className={activeSize === i ? "active" : ""}
             >
               {size} см.
             </li>

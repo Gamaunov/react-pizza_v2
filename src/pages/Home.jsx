@@ -1,22 +1,23 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-import qs from 'qs';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+import qs from "qs";
 
-import { SearchContext } from '../App';
-import Categories from '../components/Categories';
-import Pagination from '../components/pagination/Pagination';
-import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
-import Skeleton from '../components/pizzaBlock/Skeleton';
-import Sort, { list } from '../components/Sort';
+import { SearchContext } from "../App";
+import Categories from "../components/Categories";
+import Pagination from "../components/pagination/Pagination";
+import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
+import Skeleton from "../components/pizzaBlock/Skeleton";
+import Sort, { list } from "../components/Sort";
 import {
   setCategoryId,
   setCurrentPage,
   setFilters,
-} from '../redux/slices/filterSlice';
-import { useNavigate } from 'react-router';
-import { fetchPizzas } from '../redux/slices/pizzasSlice';
-import { selectPizzaData } from '../redux/pizza/selectors';
+} from "../redux/slices/filterSlice";
+import { useNavigate } from "react-router";
+import { ERROR, fetchPizzas, LOADING } from "../redux/slices/pizzasSlice";
+import { selectPizzaData } from "../redux/pizza/selectors";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Home = () => {
   const { items, status } = useSelector(selectPizzaData);
 
   const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter,
+    (state) => state.filter
   );
 
   const { searchValue } = useContext(SearchContext);
@@ -40,10 +41,10 @@ const Home = () => {
   const onChangePage = (num) => dispatch(setCurrentPage(num));
 
   const getPizzas = async () => {
-    const sortBy = sort.sortProperty.replace('-', '');
-    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
-    const category = categoryId > 0 ? `category=${categoryId}` : '';
-    const search = searchValue ? `&search=${searchValue}` : '';
+    const sortBy = sort.sortProperty.replace("-", "");
+    const order = sort.sortProperty.includes("-") ? "asc" : "desc";
+    const category = categoryId > 0 ? `category=${categoryId}` : "";
+    const search = searchValue ? `&search=${searchValue}` : "";
 
     dispatch(
       fetchPizzas({
@@ -52,7 +53,7 @@ const Home = () => {
         category,
         search,
         currentPage,
-      }),
+      })
     );
     window.scrollTo(0, 0);
   };
@@ -80,7 +81,7 @@ const Home = () => {
         setFilters({
           ...params,
           sort,
-        }),
+        })
       );
       isSearch.current = true;
     }
@@ -100,14 +101,14 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      {status === 'error' ? (
+      {status === ERROR ? (
         <div className="content__error-info">
           <h2>Ошибочка</h2>
           <p>не удалось выполнить запрос</p>
         </div>
       ) : (
         <div className="content__items">
-          {status === 'LOADING' ? skeletons : pizzas}
+          {status === LOADING ? skeletons : pizzas}
         </div>
       )}
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
