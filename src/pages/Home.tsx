@@ -17,7 +17,7 @@ import { useNavigate } from "react-router";
 import { ERROR, fetchPizzas, LOADING } from "../redux/pizza/pizzasSlice";
 import { selectPizzaData } from "../redux/pizza/selectors";
 
-const Home = () => {
+const Home:React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,11 +30,11 @@ const Home = () => {
     (state) => state.filter
   );
 
-  const onSelectCategory = (id) => {
+  const onSelectCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (num) => dispatch(setCurrentPage(num));
+  const onChangePage = (num: number) => dispatch(setCurrentPage(num));
 
   const getPizzas = async () => {
     const sortBy = sort.sortProperty.replace("-", "");
@@ -43,6 +43,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : "";
 
     dispatch(
+        // @ts-ignore
       fetchPizzas({
         sortBy,
         order,

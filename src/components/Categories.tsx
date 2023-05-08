@@ -1,16 +1,21 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
-const Categories = ({ value, onSelectCategory }) => {
+type CategoriesProps = {
+  value: number
+  onSelectCategory: (i:number)=>void
+}
+
+const Categories: React.FC<CategoriesProps> = ({ value, onSelectCategory }) => {
   const categories = [
-    'Все',
-    'Мясные',
-    'Вегетарианская',
-    'Гриль',
-    'Острые',
-    'Закрытые',
+    "Все",
+    "Мясные",
+    "Вегетарианская",
+    "Гриль",
+    "Острые",
+    "Закрытые",
   ];
-
+  
   return (
     <div className="categories">
       <ul>
@@ -18,7 +23,7 @@ const Categories = ({ value, onSelectCategory }) => {
           <li
             key={uuidv4()}
             onClick={() => onSelectCategory(i)}
-            className={value === i ? 'active' : ''}
+            className={value === i ? "active" : ""}
           >
             {category}
           </li>
