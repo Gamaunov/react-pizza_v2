@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../../redux/slices/cartSlice";
+import { addItem } from "../../redux/cart/cartSlice";
 import { Link } from "react-router-dom";
 
 const PizzaBlock = ({

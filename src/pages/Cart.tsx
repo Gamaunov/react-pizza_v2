@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CartEmpty from '../components/CartEmpty';
 
 import CartItem from '../components/CartItem';
-import { clearItems } from '../redux/slices/cartSlice';
+import { clearItems } from '../redux/cart/cartSlice';
 
 const Cart = () => {
   const dispath = useDispatch();

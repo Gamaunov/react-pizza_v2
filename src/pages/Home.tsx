@@ -12,9 +12,9 @@ import {
   setCategoryId,
   setCurrentPage,
   setFilters,
-} from "../redux/slices/filterSlice";
+} from "../redux/filter/filterSlice";
 import { useNavigate } from "react-router";
-import { ERROR, fetchPizzas, LOADING } from "../redux/slices/pizzasSlice";
+import { ERROR, fetchPizzas, LOADING } from "../redux/pizza/pizzasSlice";
 import { selectPizzaData } from "../redux/pizza/selectors";
 
 const Home = () => {

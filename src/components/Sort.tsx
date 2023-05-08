@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { setSort } from '../redux/slices/filterSlice';
+import { setSort } from '../redux/filter/filterSlice';
 
 export const list = [
   { name: 'популярности (desc', sortProperty: 'rating' },
