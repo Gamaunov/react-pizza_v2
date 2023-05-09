@@ -1,30 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-import { setSort } from '../redux/filter/filterSlice';
-import { Sort as SortType, SortPropertyEnum } from '../redux/filter/types';
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+import { setSort } from "../redux/filter/filterSlice";
+import { Sort as SortType, SortPropertyEnum } from "../redux/filter/types";
 
 type SortItem = {
   name: string;
   sortProperty: SortPropertyEnum;
 };
 
-type PopupClick = MouseEvent & {
-  path: Node[]
-}
+// type PopupClick = MouseEvent & {
+//   path: Node[]
+// }
 
 type SortPopupProps = {
   value: SortType;
 };
 
-
 export const list: SortItem[] = [
-  { name: 'популярности (DESC)', sortProperty: SortPropertyEnum.RATING_DESC },
-  { name: 'популярности (ASC)', sortProperty: SortPropertyEnum.RATING_ASC },
-  { name: 'цене (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC },
-  { name: 'цене (ASC)', sortProperty: SortPropertyEnum.PRICE_ASC },
-  { name: 'алфавиту (DESC)', sortProperty: SortPropertyEnum.TITLE_DESC },
-  { name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC },
+  { name: "популярности (DESC)", sortProperty: SortPropertyEnum.RATING_DESC },
+  { name: "популярности (ASC)", sortProperty: SortPropertyEnum.RATING_ASC },
+  { name: "цене (DESC)", sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: "цене (ASC)", sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: "алфавиту (DESC)", sortProperty: SortPropertyEnum.TITLE_DESC },
+  { name: "алфавиту (ASC)", sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
 
 const Sort: React.FC<SortPopupProps> = React.memo(({ value }) => {
@@ -53,7 +52,6 @@ const Sort: React.FC<SortPopupProps> = React.memo(({ value }) => {
   //   return () => document.body.removeEventListener('click', handleClickOutside);
   // }, []);
 
-
   return (
     <div ref={sortRef} className="sort">
       <div className="sort__label">
@@ -80,7 +78,7 @@ const Sort: React.FC<SortPopupProps> = React.memo(({ value }) => {
                 key={uuidv4()}
                 onClick={() => onSelect(obj)}
                 className={
-                  value.sortProperty === obj.sortProperty ? 'active' : ''
+                  value.sortProperty === obj.sortProperty ? "active" : ""
                 }
               >
                 {obj.name}

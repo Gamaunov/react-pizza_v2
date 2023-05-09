@@ -5,18 +5,18 @@ import CartEmpty from '../components/CartEmpty';
 import CartItem from '../components/CartItem';
 import { clearItems } from '../redux/cart/cartSlice';
 import { selectCart } from '../redux/cart/selectors';
+import {Link} from "react-router-dom";
 
 const Cart:React.FC = () => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const { totalPrice, items } = useSelector(selectCart);
 
   const totalCount = items.reduce((sum:number, item:any) => sum + item.count, 0);
 
   const onClickClear = () => {
-    dispath(clearItems());
+      dispatch(clearItems);
   };
-
   if (!totalPrice) {
     return <CartEmpty />;
   }
@@ -80,12 +80,12 @@ const Cart:React.FC = () => {
             </span>
           </div>
           <div className="cart__bottom-buttons">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="button button--outline button--add go-back-btn"
             >
               <span>Вернуться назад</span>
-            </a>
+            </Link>
             <div className="button pay-btn">
               <span>Оплатить сейчас</span>
             </div>
