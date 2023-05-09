@@ -6,15 +6,17 @@ type CategoriesProps = {
   onSelectCategory: (i:number)=>void
 }
 
-const Categories: React.FC<CategoriesProps> = ({ value, onSelectCategory }) => {
-  const categories = [
-    "Все",
-    "Мясные",
-    "Вегетарианская",
-    "Гриль",
-    "Острые",
-    "Закрытые",
-  ];
+const categories = [
+  "Все",
+  "Мясные",
+  "Вегетарианская",
+  "Гриль",
+  "Острые",
+  "Закрытые",
+];
+
+const Categories: React.FC<CategoriesProps> = React.memo( ({ value, onSelectCategory }) => {
+
   
   return (
     <div className="categories">
@@ -31,6 +33,6 @@ const Categories: React.FC<CategoriesProps> = ({ value, onSelectCategory }) => {
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;

@@ -1,7 +1,11 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../../redux/cart/cartSlice";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../../redux/cart/cartSlice';
+import { Link } from 'react-router-dom';
+import { selectCartItemById } from '../../redux/cart/selectors';
+import { CartItem } from '../../redux/cart/types';
+
+// const typeNames = ['тонкое', 'традиционное'];
 
 type PizzaBlockProps = {
   id: string;
@@ -16,33 +20,30 @@ type PizzaBlockProps = {
 
 const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id,
-  imageUrl,
   title,
-  types,
-  sizes,
   price,
-  category,
-  rating,
+  imageUrl,
+  sizes,
+  types,
 }) => {
   const dispath = useDispatch();
-  const cartItem = useSelector((state) =>
-    state.cart.items.find((obj) => obj.id === id)
-  );
+  const cartItem = useSelector(selectCartItemById(id));
   const addedCount = cartItem ? cartItem.count : 0;
 
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
-  const typeNames: string[] = ["тонкое", "традиционное"];
+  const typeNames: string[] = ['тонкое', 'традиционное'];
 
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id,
       title,
       price,
       imageUrl,
       type: typeNames[activeType],
       size: sizes[activeSize],
+      count: 0,
     };
     dispath(addItem(item));
   };
@@ -58,7 +59,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
           {types?.map((typeIndex) => (
             <li
               key={typeIndex}
-              className={activeType === typeIndex ? "active" : ""}
+              className={activeType === typeIndex ? 'active' : ''}
               onClick={() => setActiveType(typeIndex)}
             >
               {typeNames[typeIndex]}
@@ -70,7 +71,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
             <li
               key={size}
               onClick={() => setActiveSize(i)}
-              className={activeSize === i ? "active" : ""}
+              className={activeSize === i ? 'active' : ''}
             >
               {size} см.
             </li>
